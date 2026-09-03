@@ -1,35 +1,9 @@
-# FindBiz V4 — Real Business Search
+# FindBiz V5 — Real Business Search
 
-FindBiz V4 upgrades the static demo into a real, user-triggered business search.
+This version connects the GitHub Pages site to the FindBiz Cloudflare Worker and searches OpenStreetMap.
 
-## Current features
+Industries: Plumbers, Restaurants, Electricians, Dentists, Barbers.
 
-- London default location
-- Plumbers
-- Restaurants
-- Electricians
-- Dentists
-- Barbers
-- Live OpenStreetMap/Nominatim search through a Cloudflare Worker
-- Website-listed vs no-website-listed indicator
-- Lead-priority score
-- OpenStreetMap source link
-- Clear disclaimer that missing website data is not proof of no website
+Important: “No website listed” means the returned OpenStreetMap record has no website field. It does NOT prove the business has no website. OpenStreetMap coverage varies.
 
-## Data source
-
-OpenStreetMap / Nominatim.
-
-Nominatim is a best-match search service; it does not provide a complete list of all businesses in a city. For a larger commercial product, FindBiz should eventually move to a dedicated business-data provider or its own licensed data pipeline.
-
-Nominatim policy:
-https://operations.osmfoundation.org/policies/nominatim/
-
-Cloudflare Workers free limits currently include 100,000 requests/day:
-https://developers.cloudflare.com/workers/platform/limits/
-
-## Setup
-
-The GitHub Pages site is static. `app.js` must be pointed at the deployed Cloudflare Worker URL before live search will work.
-
-See `worker/README.md`.
+This is a low-volume proof of concept. The public Nominatim service should not be used for bulk/systematic scraping.
