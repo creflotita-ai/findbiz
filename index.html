@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FindBiz — Find businesses that may need a website</title>
+  <title>FindBiz — Find website leads</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -14,26 +14,32 @@
 
 <main class="container">
   <section class="hero">
-    <div class="eyebrow">REAL BUSINESS SEARCH · V6</div>
-    <h1>Find local businesses with a web opportunity.</h1>
+    <div class="eyebrow">REAL BUSINESS SEARCH · V8</div>
+    <h1>Find businesses with a potential web opportunity.</h1>
     <p class="intro">
-      Search real OpenStreetMap business records through the FindBiz search gateway.
-      A missing website listing is a <strong>lead to verify</strong> — it is not proof that a business has no website.
+      Search real business records by location and industry. FindBiz highlights records
+      where no website is listed so you can investigate promising prospects.
     </p>
 
     <div class="searchbox">
       <label>
         <span>Location</span>
-        <input id="location" value="London" placeholder="e.g. London">
+        <input id="location" value="London" placeholder="e.g. Paris, France">
       </label>
       <label>
         <span>Industry</span>
         <select id="industry">
-          <option value="plumber">Plumbers</option>
           <option value="restaurant">Restaurants</option>
+          <option value="barber">Barbers</option>
+          <option value="plumber">Plumbers</option>
           <option value="electrician">Electricians</option>
           <option value="dentist">Dentists</option>
-          <option value="barber">Barbers</option>
+          <option value="cafe">Cafés</option>
+          <option value="bakery">Bakeries</option>
+          <option value="gym">Gyms</option>
+          <option value="florist">Florists</option>
+          <option value="hairdresser">Hairdressers</option>
+          <option value="mechanic">Mechanics</option>
         </select>
       </label>
       <button id="searchBtn">Find businesses</button>
@@ -45,22 +51,23 @@
   <section class="results-section">
     <div class="results-heading">
       <div>
-        <h2>Results</h2>
-        <p id="resultSummary">Run a search to see live records.</p>
+        <h2>Potential leads</h2>
+        <p id="resultSummary">Search to find live business records.</p>
       </div>
       <div id="countBadge" class="count" hidden></div>
     </div>
     <div id="results" class="results">
       <div class="empty">
         <strong>Ready to search</strong>
-        <span>Choose an industry and click “Find businesses”.</span>
+        <span>Choose a location and industry, then click “Find businesses”.</span>
       </div>
     </div>
   </section>
 
   <div class="notice">
-    <strong>Important:</strong> “No website listed” means no website was found in the OpenStreetMap record returned by the search.
-    It is <strong>not</strong> proof that the business has no website. Verify promising leads before contacting them.
+    <strong>Lead-quality note:</strong> a “Potential web lead” means no website was listed
+    in the returned OpenStreetMap record. It is not proof that the business has no website.
+    Always verify a prospect before contacting them.
   </div>
 </main>
 
