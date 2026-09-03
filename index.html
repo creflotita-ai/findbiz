@@ -1,8 +1,67 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>FindBiz — Find Local Businesses That Need a Website</title><link rel="stylesheet" href="styles.css"></head><body>
-<header class="nav"><a class="brand" href="#"><span class="pin">●</span> FindBiz</a><nav><a href="#search">Find Leads</a><a href="#how">How It Works</a><a href="#pricing">Pricing</a></nav><div class="nav-actions"><a class="login" href="#">Log in</a><a class="btn small" href="#search">Start Free</a></div></header>
-<section class="hero"><div><div class="eyebrow">● London lead finder</div><h1>Find Local Businesses<br>That <span>Need a Website</span></h1><p>Discover plumbers, restaurants, electricians, dentists and barbers with no or weak online presence — then turn the best prospects into paying website customers.</p><div class="buttons"><a class="btn" href="#search">Find London Leads</a><a class="btn outline" href="#how">How it works</a></div><div class="trust">✓ Business discovery &nbsp;&nbsp; ✓ Website detection &nbsp;&nbsp; ✓ Opportunity scoring</div></div>
-<div class="panel"><div class="paneltop"><b>London Opportunities</b><small>Product preview</small></div><div class="metrics"><div><b>5</b><small>Industries</small></div><div><b>1</b><small>City</small></div><div><b>∞</b><small>Potential leads</small></div></div><div class="sample">🔧 <span><b>London Plumbing Co.</b><small>Plumber · 83 reviews</small></span><strong>94</strong></div><div class="sample">💈 <span><b>London Barber Studio</b><small>Barber · 68 reviews</small></span><strong>90</strong></div><div class="sample">🍽️ <span><b>The London Grill</b><small>Restaurant · 126 reviews</small></span><strong>91</strong></div></div></section>
-<section id="search" class="section"><div class="heading"><div class="eyebrow purple">Your first prospecting search</div><h2>Search London businesses</h2><p>Select one or more industries. This prototype uses sample leads; the real-data connection comes next.</p></div>
-<div class="searchbox"><label>Location<input id="location" value="London"></label><label>Minimum reviews<input id="reviews" type="number" value="20" min="0"></label><div><b>Industries</b><div class="checks"><label><input class="cat" type="checkbox" value="Plumbers" checked> 🔧 Plumbers</label><label><input class="cat" type="checkbox" value="Restaurants" checked> 🍽️ Restaurants</label><label><input class="cat" type="checkbox" value="Electricians" checked> ⚡ Electricians</label><label><input class="cat" type="checkbox" value="Dentists" checked> 🦷 Dentists</label><label><input class="cat" type="checkbox" value="Barbers" checked> 💈 Barbers</label></div></div><button class="btn" onclick="searchLeads()">Search Businesses</button></div><div id="results"></div></section>
-<section id="how" class="section muted"><div class="heading"><div class="eyebrow">How FindBiz works</div><h2>Search → qualify → sell</h2></div><div class="steps"><div><span>1</span><h3>Search</h3><p>Choose London and the industries you want.</p></div><div><span>2</span><h3>Detect</h3><p>Find businesses with no or weak web presence.</p></div><div><span>3</span><h3>Score</h3><p>Prioritise the strongest prospects.</p></div><div><span>4</span><h3>Convert</h3><p>Create a preview and offer your website service.</p></div></div></section>
-<section id="pricing" class="section"><div class="heading"><div class="eyebrow purple">Future pricing</div><h2>Start free, scale later</h2></div><div class="pricing"><article><h3>Free</h3><b class="price">£0</b><p>Validate the idea.</p><ul><li>Limited searches</li><li>Sample/demo results</li><li>Basic lead details</li></ul></article><article><h3>Pro</h3><b class="price">£99</b><p>For freelancers and web designers.</p><ul><li>Real lead searches</li><li>Exports</li><li>Website audits</li><li>AI previews</li></ul></article><article><h3>Agency</h3><b class="price">£299</b><p>For high-volume prospecting.</p><ul><li>Large search limits</li><li>Team access</li><li>Campaign tools</li><li>API access</li></ul></article></div></section><footer>FindBiz — working product name. Real-data integration and pricing are not yet connected.</footer><script src="app.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FindBiz — Find businesses that may need a website</title>
+  <meta name="description" content="Find local businesses and identify businesses with no website listed in OpenStreetMap.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Find<span>Biz</span></div>
+    <div class="tagline">Find businesses that may need a website</div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">REAL BUSINESS SEARCH · V4</p>
+        <h1>Find local businesses with a web opportunity.</h1>
+        <p class="sub">Search real OpenStreetMap business records. FindBiz checks whether a website is <strong>listed in the source data</strong> — it does not assume that a missing website proves the business has no website.</p>
+      </div>
+    </section>
+
+    <section class="search-card">
+      <div class="field">
+        <label for="location">Location</label>
+        <input id="location" value="London" placeholder="e.g. London">
+      </div>
+      <div class="field">
+        <label for="industry">Industry</label>
+        <select id="industry">
+          <option value="plumber">Plumbers</option>
+          <option value="restaurant">Restaurants</option>
+          <option value="electrician">Electricians</option>
+          <option value="dentist">Dentists</option>
+          <option value="barber">Barbers</option>
+        </select>
+      </div>
+      <button id="searchBtn" class="primary">Find businesses</button>
+    </section>
+
+    <div id="status" class="status"></div>
+
+    <section class="results-head">
+      <div>
+        <h2>Results</h2>
+        <p id="resultNote">Run a search to see live records.</p>
+      </div>
+      <div id="count" class="count"></div>
+    </section>
+
+    <section id="results" class="results-grid"></section>
+
+    <section class="notice">
+      <strong>Important:</strong> “No website listed” means no website was found in the OpenStreetMap record returned by the search. It is <strong>not</strong> proof that the business has no website. Verify promising leads before contacting them.
+    </section>
+
+    <footer>
+      <p>Business data © OpenStreetMap contributors, ODbL.</p>
+      <p>FindBiz is an independent lead-research tool.</p>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
