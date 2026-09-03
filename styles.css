@@ -29,3 +29,45 @@ header{background:rgba(8,19,38,.96);backdrop-filter:blur(14px)}
 @media(max-width:900px){.statsbar{grid-template-columns:1fr 1fr;margin-top:10px}.statsbar div:nth-child(2){border-right:0}.statsbar div{margin:8px 0}.quotes{grid-template-columns:1fr}}
 @media(max-width:560px){.statsbar{grid-template-columns:1fr 1fr}.statsbar b{font-size:22px}}
 .primary,.secondary,.link{transition:transform .18s ease,box-shadow .18s ease}.primary:hover{transform:translateY(-2px);box-shadow:0 14px 30px #6752ff40}.secondary:hover{transform:translateY(-2px)}
+/* V12 critical modal fix + premium modal styling */
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  background:rgba(8,19,38,.62);
+  backdrop-filter:blur(10px);
+}
+.modal.open{display:flex}
+.modalbox{
+  width:min(460px,100%);
+  background:#fff;
+  border:1px solid #e5e8f1;
+  border-radius:22px;
+  padding:30px;
+  position:relative;
+  box-shadow:0 30px 90px rgba(10,20,50,.28);
+  animation:modalIn .18s ease-out;
+}
+.modalbox #close{
+  position:absolute;
+  right:16px;
+  top:14px;
+  width:34px;
+  height:34px;
+  border:1px solid #e2e6ef;
+  background:#f7f8fb;
+  border-radius:50%;
+  font-size:22px;
+  line-height:1;
+  cursor:pointer;
+  color:#536078;
+}
+.modalbox h2{margin:16px 0 8px;font-size:30px;letter-spacing:-1px}
+.modalbox p{color:#68748a;line-height:1.6}
+.modalbox input{margin:12px 0}
+.full{width:100%}
+@keyframes modalIn{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}

@@ -1,4 +1,4 @@
-# FindBiz V11 — Catchy polished Profit-Focused Lead Finder
+# FindBiz V12 — Catchy polished Profit-Focused Lead Finder
 
 Modern responsive frontend connected to the existing FindBiz Cloudflare Worker.
 
