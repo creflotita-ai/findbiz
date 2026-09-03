@@ -1,80 +1,112 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FindBiz — Find website leads</title>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FindBiz — Find Businesses That Need Websites</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header class="topbar">
-  <div class="brand">Find<span>Biz</span></div>
-  <div class="tagline">Find businesses that may need a website</div>
+<header class="nav">
+  <a class="logo" href="#home">Find<span>Biz</span></a>
+  <nav>
+    <a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#how">How it works</a>
+  </nav>
+  <div class="nav-actions">
+    <button class="text-btn" data-modal="login">Log in</button>
+    <button class="primary small" data-modal="signup">Start free</button>
+  </div>
 </header>
 
-<main class="container">
-  <section class="hero">
-    <div class="eyebrow">REAL BUSINESS SEARCH · V8</div>
-    <h1>Find businesses with a potential web opportunity.</h1>
-    <p class="intro">
-      Search real business records by location and industry. FindBiz highlights records
-      where no website is listed so you can investigate promising prospects.
-    </p>
-
-    <div class="searchbox">
-      <label>
-        <span>Location</span>
-        <input id="location" value="London" placeholder="e.g. Paris, France">
-      </label>
-      <label>
-        <span>Industry</span>
-        <select id="industry">
-          <option value="restaurant">Restaurants</option>
-          <option value="barber">Barbers</option>
-          <option value="plumber">Plumbers</option>
-          <option value="electrician">Electricians</option>
-          <option value="dentist">Dentists</option>
-          <option value="cafe">Cafés</option>
-          <option value="bakery">Bakeries</option>
-          <option value="gym">Gyms</option>
-          <option value="florist">Florists</option>
-          <option value="hairdresser">Hairdressers</option>
-          <option value="mechanic">Mechanics</option>
-        </select>
-      </label>
-      <button id="searchBtn">Find businesses</button>
+<main>
+<section id="home" class="hero">
+  <div class="hero-copy">
+    <div class="eyebrow">BUILT FOR WEB DESIGNERS & AGENCIES</div>
+    <h1>Find businesses that may need a <span>better website.</span></h1>
+    <p>FindBiz helps you discover local businesses, identify records with no website listed, and turn promising prospects into your next client.</p>
+    <div class="hero-buttons">
+      <a class="primary" href="#search">Find leads free</a>
+      <a class="secondary" href="#pricing">See plans</a>
     </div>
-
-    <div id="status" class="status" hidden></div>
-  </section>
-
-  <section class="results-section">
-    <div class="results-heading">
-      <div>
-        <h2>Potential leads</h2>
-        <p id="resultSummary">Search to find live business records.</p>
-      </div>
-      <div id="countBadge" class="count" hidden></div>
-    </div>
-    <div id="results" class="results">
-      <div class="empty">
-        <strong>Ready to search</strong>
-        <span>Choose a location and industry, then click “Find businesses”.</span>
-      </div>
-    </div>
-  </section>
-
-  <div class="notice">
-    <strong>Lead-quality note:</strong> a “Potential web lead” means no website was listed
-    in the returned OpenStreetMap record. It is not proof that the business has no website.
-    Always verify a prospect before contacting them.
+    <div class="trust-row"><span>✓ Real business records</span><span>✓ Worldwide locations</span><span>✓ Free to start</span></div>
   </div>
+  <div class="hero-card">
+    <div class="card-head"><span>PROSPECT PREVIEW</span><b>LIVE</b></div>
+    <div class="mock-search"><span>Paris, France</span><span>Restaurants</span></div>
+    <div class="mock-row"><div><strong>Local Restaurant</strong><small>Paris · Restaurant</small></div><em>High opportunity</em></div>
+    <div class="mock-row"><div><strong>City Café</strong><small>Paris · Café</small></div><em>Potential lead</em></div>
+    <div class="mock-row"><div><strong>Maison Kitchen</strong><small>Paris · Restaurant</small></div><em>Review website</em></div>
+    <div class="mock-foot">Turn searches into sales conversations.</div>
+  </div>
+</section>
+
+<section class="value-strip">
+  <div><strong>1. Search</strong><span>Target a market</span></div>
+  <div><strong>2. Qualify</strong><span>Spot opportunities</span></div>
+  <div><strong>3. Contact</strong><span>Pitch your service</span></div>
+  <div><strong>4. Close</strong><span>Win the client</span></div>
+</section>
+
+<section id="features" class="section">
+  <div class="section-head"><div class="eyebrow">WHY FINDBIZ</div><h2>A lead-generation tool, not just a business directory.</h2><p>Every part of the product is designed around helping you find and qualify prospects.</p></div>
+  <div class="feature-grid">
+    <article><div class="icon">🔎</div><h3>Targeted discovery</h3><p>Search by industry and location instead of manually hunting business directories.</p></article>
+    <article><div class="icon">🎯</div><h3>Website opportunity signals</h3><p>Highlight records where no website is listed so you know where to investigate first.</p></article>
+    <article><div class="icon">📞</div><h3>Useful contact data</h3><p>See available phone numbers, addresses and website information.</p></article>
+    <article><div class="icon">🌎</div><h3>Worldwide markets</h3><p>Search named locations such as London, Paris, New York or Sydney.</p></article>
+    <article><div class="icon">📋</div><h3>Save & organize</h3><p>Paid plans are designed to unlock lead-saving and workflow features as the product grows.</p></article>
+    <article><div class="icon">🚀</div><h3>Made to make money</h3><p>Use FindBiz to generate prospects for your own web-design, marketing or digital-service business.</p></article>
+  </div>
+</section>
+
+<section id="search" class="search-section">
+  <div class="section-head left"><div class="eyebrow">LIVE LEAD FINDER</div><h2>Find your next prospects.</h2><p>Start with a location and industry. No account is required for this demo search.</p></div>
+  <div class="searchbox">
+    <label><span>Location</span><input id="location" value="London" placeholder="e.g. Paris, France"></label>
+    <label><span>Industry</span>
+      <select id="industry">
+        <option value="restaurant">Restaurants</option><option value="barber">Barbers</option><option value="plumber">Plumbers</option>
+        <option value="electrician">Electricians</option><option value="dentist">Dentists</option><option value="cafe">Cafés</option>
+        <option value="bakery">Bakeries</option><option value="gym">Gyms</option><option value="florist">Florists</option>
+        <option value="hairdresser">Hairdressers</option><option value="mechanic">Mechanics</option>
+      </select>
+    </label>
+    <button id="searchBtn" class="primary">Find businesses</button>
+  </div>
+  <div id="status" class="status" hidden></div>
+  <div class="results-heading"><div><h3>Potential leads</h3><p id="resultSummary">Search to find live business records.</p></div><div id="countBadge" class="count" hidden></div></div>
+  <div id="results" class="results"><div class="empty"><strong>Ready to search</strong><span>Choose a market and click “Find businesses”.</span></div></div>
+</section>
+
+<section id="how" class="section how">
+  <div class="section-head"><div class="eyebrow">HOW YOU MAKE MONEY</div><h2>FindBiz fits into your sales process.</h2></div>
+  <div class="steps">
+    <div><b>01</b><h3>Find a prospect</h3><p>Search for businesses in a market you want to serve.</p></div>
+    <div><b>02</b><h3>Qualify the opportunity</h3><p>Check whether a website is listed and review the available business details.</p></div>
+    <div><b>03</b><h3>Pitch your service</h3><p>Contact the business and offer a website, redesign, marketing or related service.</p></div>
+    <div><b>04</b><h3>Close the client</h3><p>Use the revenue from your clients to make FindBiz worth far more than its subscription.</p></div>
+  </div>
+</section>
+
+<section id="pricing" class="pricing-section">
+  <div class="section-head"><div class="eyebrow">PRICING</div><h2>Choose the plan that matches your prospecting.</h2><p>These are the product tiers we can wire to real billing later. For now, the buttons are demo signup actions.</p></div>
+  <div class="pricing-grid">
+    <article class="price-card"><div class="plan">FREE</div><div class="price">$0<span>/month</span></div><p>Try FindBiz and validate your workflow.</p><ul><li>✓ Limited searches</li><li>✓ Basic opportunity signals</li><li>✓ Worldwide location search</li></ul><button class="secondary full" data-modal="signup">Start free</button></article>
+    <article class="price-card featured"><div class="popular">MOST POPULAR</div><div class="plan">PRO</div><div class="price">$19<span>/month</span></div><p>For freelancers actively prospecting for clients.</p><ul><li>✓ Higher search allowance</li><li>✓ Save & organize leads</li><li>✓ Advanced lead filters</li><li>✓ Export tools</li></ul><button class="primary full" data-modal="signup">Start Pro</button></article>
+    <article class="price-card"><div class="plan">AGENCY</div><div class="price">$49<span>/month</span></div><p>For agencies and teams generating leads at scale.</p><ul><li>✓ Larger search allowance</li><li>✓ Team workflow features</li><li>✓ Lead exports</li><li>✓ Priority features</li></ul><button class="secondary full" data-modal="signup">Start Agency</button></article>
+  </div>
+  <p class="pricing-note">Pricing shown is a product mockup for the current build. We will connect real subscriptions only after the product flow is working.</p>
+</section>
+
+<section class="cta">
+  <div><div class="eyebrow">READY TO PROSPECT?</div><h2>Find businesses. Start conversations. Win clients.</h2><p>Start with the free search and upgrade when FindBiz becomes part of your sales routine.</p></div>
+  <a class="primary" href="#search">Find leads now</a>
+</section>
 </main>
 
-<footer>
-  Business data © OpenStreetMap contributors, ODbL.
-</footer>
+<footer><div class="logo">Find<span>Biz</span></div><p>Business prospecting for web designers, freelancers and agencies.</p><div><a href="#pricing">Pricing</a><a href="#features">Features</a><a href="#how">How it works</a></div><small>Business records powered by OpenStreetMap. A missing website listing is not proof that a business has no website; verify before contacting.</small></footer>
 
+<div id="modal" class="modal" hidden><div class="modal-backdrop" data-close></div><div class="modal-box"><button class="close" data-close>×</button><div class="eyebrow" id="modalEyebrow">GET STARTED</div><h2 id="modalTitle">Create your FindBiz account</h2><p id="modalText">This account flow is currently a product preview. Real authentication and billing can be connected next.</p><input placeholder="Your name"><input placeholder="Email address" type="email"><input placeholder="Password" type="password"><button class="primary full" data-close>Continue</button><small>No payment is taken in this demo.</small></div></div>
 <script src="app.js"></script>
 </body>
 </html>
