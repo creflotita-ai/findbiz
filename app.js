@@ -1,54 +1,9 @@
-const API_URL="https://findbiz-api.creflotita.workers.dev";
-const $=id=>document.getElementById(id);
-const searchBtn=$("searchBtn"),locationInput=$("location"),industrySelect=$("industry"),resultsEl=$("results"),statusEl=$("status"),summaryEl=$("resultSummary"),countEl=$("countBadge");
-
-function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
-function websiteOf(p){return p.website||p.extratags?.website||p.extratags?.["contact:website"]||""}
-function phoneOf(p){return p.phone||p.extratags?.phone||p.extratags?.["contact:phone"]||""}
-function addressOf(p){const a=p.address||{};return [p.display_name,[a.house_number,a.road].filter(Boolean).join(" "),a.suburb,a.city,a.town,a.postcode,a.country].filter(Boolean).join(", ")].find(Boolean)||"Address unavailable"}
-function opportunity(p){const hasSite=!!websiteOf(p), hasPhone=!!phoneOf(p); if(!hasSite)return {label:"Potential web lead",cls:"hot"}; if(!hasPhone)return {label:"Worth checking",cls:""}; return {label:"Website listed",cls:"good"}}
-
-function showStatus(msg){statusEl.hidden=false;statusEl.textContent=msg}
-function render(data){
-  resultsEl.innerHTML="";
-  const count=Number(data.count||data.results?.length||0);
-  countEl.hidden=false; countEl.textContent=`${count} found`;
-  summaryEl.textContent=`Live OpenStreetMap records for ${data.location||locationInput.value}.`;
-  if(!count){resultsEl.innerHTML='<div class="empty"><strong>No matching businesses found</strong><span>Try another location or industry.</span></div>';return}
-  (data.results||[]).forEach(p=>{
-    const site=websiteOf(p), phone=phoneOf(p), opp=opportunity(p);
-    const map=(p.lat&&p.lon)?`https://www.openstreetmap.org/?mlat=${encodeURIComponent(p.lat)}&mlon=${encodeURIComponent(p.lon)}#map=18/${encodeURIComponent(p.lat)}/${encodeURIComponent(p.lon)}`:"";
-    const card=document.createElement("article"); card.className="result-card";
-    card.innerHTML=`<div><h3>${esc(p.name||"Unnamed business")}</h3><div class="sub">${esc(addressOf(p))}</div><div class="tags"><span class="tag">${esc(data.industry||"business")}</span><span class="tag ${opp.cls}">${esc(opp.label)}</span>${site?'<span class="tag good">Website listed</span>':'<span class="tag hot">No website listed</span>'}</div>${phone?`<div class="sub">Phone: ${esc(phone)}</div>`:""}</div><div class="actions">${site&&/^https?:\/\//i.test(site)?`<a href="${esc(site)}" target="_blank" rel="noopener">Website</a>`:""}${map?`<a href="${map}" target="_blank" rel="noopener">View map</a>`:""}</div>`;
-    resultsEl.appendChild(card);
-  });
-}
-
-async function searchBusinesses(){
-  const location=locationInput.value.trim();
-  const industry=industrySelect.value;
-  if(!location){showStatus("Please enter a location first.");locationInput.focus();return}
-  searchBtn.disabled=true; searchBtn.textContent="Searching…"; resultsEl.innerHTML="";
-  showStatus(`Searching ${location} for ${industry} businesses…`);
-  try{
-    const r=await fetch(`${API_URL}/search?${new URLSearchParams({industry,location})}`);
-    if(!r.ok)throw new Error(`Search failed (${r.status})`);
-    const data=await r.json();
-    if(!data.ok)throw new Error(data.error||"Search failed");
-    showStatus(`Found ${data.count||0} live result${data.count===1?"":"s"} in ${data.location||location}.`);
-    render(data);
-  }catch(err){
-    console.error(err); showStatus("The live search is temporarily unavailable. Please try again.");
-    resultsEl.innerHTML='<div class="empty"><strong>Search unavailable</strong><span>Please try again in a moment.</span></div>';
-  }finally{searchBtn.disabled=false;searchBtn.textContent="Find businesses"}
-}
-searchBtn.addEventListener("click",searchBusinesses);
-locationInput.addEventListener("keydown",e=>{if(e.key==="Enter")searchBusinesses()});
-
-const modal=$("modal");
-document.querySelectorAll("[data-modal]").forEach(b=>b.addEventListener("click",()=>{
-  modal.hidden=false;
-  $("modalEyebrow").textContent=b.dataset.modal==="login"?"WELCOME BACK":"GET STARTED";
-  $("modalTitle").textContent=b.dataset.modal==="login"?"Log in to FindBiz":"Create your FindBiz account";
-}));
-document.querySelectorAll("[data-close]").forEach(b=>b.addEventListener("click",()=>modal.hidden=true));
+const API_URL="https://findbiz-api.creflotita.workers.dev";let results=[],high=true;
+const $=x=>document.getElementById(x);const esc=x=>String(x??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+function score(b){return Math.min(99,55+(b.website?0:25)+(b.phone?7:0)+(b.address?5:0)+(b.name?3:0))}
+function render(){let a=[...results].sort((x,y)=>high?score(y)-score(x):score(x)-score(y));$("resultsList").innerHTML=a.map((b,i)=>`<article class="lead"><div class="score">${score(b)}</div><div><h3>${esc(b.name||"Unnamed business")} ${!b.website?'<span class="tag">No website listed</span>':''}</h3><p>📍 ${esc(b.display_name||b.address||"Location unavailable")}</p><p>${b.phone?"☎ "+esc(b.phone):""} ${b.website?"🌐 "+esc(b.website):""}</p></div><div class="lead-actions"><button class="secondary" onclick="save()">♡ Save</button><button class="primary" onclick="details(${i})">View details →</button></div></article>`).join("")}
+async function search(){let l=$("location").value.trim(),ind=$("industry").value;if(!l){$("status").textContent="Please enter a location.";return}$("status").textContent="Searching live business records…";try{let r=await fetch(`${API_URL}/search?location=${encodeURIComponent(l)}&industry=${encodeURIComponent(ind)}`);if(!r.ok)throw 0;let d=await r.json();results=Array.isArray(d.results)?d.results:[];$("resultTitle").textContent=`${results.length} businesses found`;$("resultSub").textContent=`${ind} in ${l}`;$("status").textContent=results.length?"Potential opportunities are shown first. Verify prospects before contacting them.":"No results returned — try a broader search.";render()}catch(e){$("status").textContent="The live search could not connect right now. Please try again."}}
+function save(){alert("Save is ready as a preview. Real saved leads will arrive with accounts.")}
+function details(i){let b=results[i];alert(`${b.name||"Business"}\n\n${b.display_name||""}\n${b.phone||"No phone listed"}\n${b.website||"No website listed in this record"}`)}
+$("searchBtn").onclick=search;$("location").onkeydown=e=>{if(e.key==="Enter")search()};$("sortBtn").onclick=()=>{high=!high;$("sortBtn").textContent=high?"✦ High opportunity first":"↕ Lower opportunity first";render()};$("exportBtn").onclick=()=>alert(results.length?"Export is a paid-plan feature preview.":"Search first.");
+document.querySelectorAll("[data-modal]").forEach(b=>b.onclick=()=>{$("modal").classList.add("open");$("modalTitle").textContent=b.dataset.modal==="login"?"Log in":"Start free";$("modalText").textContent=b.dataset.modal==="login"?"Real accounts are planned for the next stage of FindBiz.":"Create your free account in the next stage of FindBiz."});$("close").onclick=()=>$("modal").classList.remove("open");$("modal").onclick=e=>{if(e.target.id==="modal")$("modal").classList.remove("open")};
