@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FindBiz — Find Businesses That Need a Website</title>
+  <meta name="description" content="Find local businesses with no or weak online presence and turn them into qualified website opportunities.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="nav">
+    <a class="brand" href="#"><span class="pin">●</span> FindBiz</a>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#pricing">Pricing</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="login" href="#">Log in</a>
+      <a class="btn btn-small" href="#search">Start Free Trial</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow">● Find businesses with no or weak online presence</div>
+        <h1>Find Businesses<br>That Need a Website<br><span>(And Want Your Help)</span></h1>
+        <p>Find local businesses with no website or poor online presence. Build a pipeline of high-value prospects instead of searching for clients one by one.</p>
+        <div class="hero-buttons">
+          <a class="btn" href="#search">Start Free Trial</a>
+          <a class="btn btn-outline" href="#how">▶ Watch Demo</a>
+        </div>
+        <div class="trust-row">
+          <div><b>✓</b> Verified business data</div>
+          <div><b>⌕</b> Smart website detection</div>
+          <div><b>✦</b> AI website previews</div>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="mini-map"></div>
+        <div class="lead-card">
+          <div class="restaurant-photo">☕</div>
+          <h3>Joe's Coffee House</h3>
+          <span class="badge red">No Website Detected</span>
+          <div class="stars">★★★★★ <small>124 reviews</small></div>
+          <div class="score"><span>Opportunity Score</span><strong>95</strong><small>/100</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="section">
+      <div class="section-heading">
+        <div class="eyebrow purple">Simple, powerful prospecting</div>
+        <h2>Turn local businesses into customers</h2>
+        <p>Everything you need to find, qualify and approach businesses that could benefit from a better web presence.</p>
+      </div>
+      <div class="feature-grid">
+        <article><div class="icon">⌕</div><h3>Smart Search</h3><p>Search by location, business type, reviews and online-presence status.</p></article>
+        <article><div class="icon">◎</div><h3>Opportunity Scores</h3><p>Prioritise prospects using reviews, business strength and website status.</p></article>
+        <article><div class="icon">✦</div><h3>AI Previews</h3><p>Generate a persuasive website concept you can show to a prospect.</p></article>
+      </div>
+    </section>
+
+    <section id="how" class="section muted">
+      <div class="section-heading">
+        <div class="eyebrow">How it works</div>
+        <h2>From search to sales opportunity</h2>
+      </div>
+      <div class="steps">
+        <div><span>1</span><h3>Search</h3><p>Choose an area and industry.</p></div>
+        <div><span>2</span><h3>Qualify</h3><p>Find businesses with no or weak websites.</p></div>
+        <div><span>3</span><h3>Preview</h3><p>Create a sample website for the lead.</p></div>
+        <div><span>4</span><h3>Convert</h3><p>Contact the business and sell your service.</p></div>
+      </div>
+    </section>
+
+    <section id="search" class="section search-section">
+      <div class="section-heading">
+        <div class="eyebrow">MVP search preview</div>
+        <h2>Find your first leads</h2>
+        <p>This demo uses sample data. We'll connect real business data in the next build step.</p>
+      </div>
+      <div class="search-box">
+        <label>Location<input id="location" value="Birmingham, UK" placeholder="e.g. Manchester"></label>
+        <label>Business type<select id="type"><option>Restaurants</option><option>Plumbers</option><option>Electricians</option><option>Dentists</option><option>Builders</option></select></label>
+        <label>Minimum reviews<input id="reviews" type="number" value="20" min="0"></label>
+        <button class="btn" onclick="searchLeads()">Search Businesses</button>
+      </div>
+      <div id="results" class="results"></div>
+    </section>
+
+    <section id="pricing" class="section">
+      <div class="section-heading">
+        <div class="eyebrow purple">Simple, transparent pricing</div>
+        <h2>Plans that grow with you</h2>
+      </div>
+      <div class="pricing-grid">
+        <article class="price-card"><h3>Free</h3><div class="price">£0 <small>/month</small></div><p>Try FindBiz</p><ul><li>5 searches/month</li><li>100 results/search</li><li>Basic business info</li></ul><a class="btn btn-outline" href="#search">Get Started</a></article>
+        <article class="price-card"><h3>Starter</h3><div class="price">£29 <small>/month</small></div><p>For freelancers</p><ul><li>25 searches/month</li><li>500 results/search</li><li>CSV exports</li><li>Lead contact fields</li></ul><a class="btn" href="#search">Start Trial</a></article>
+        <article class="price-card popular"><div class="popular-tag">Most Popular</div><h3>Pro</h3><div class="price">£99 <small>/month</small></div><p>For growing operators</p><ul><li>Unlimited searches</li><li>1,000 results/search</li><li>AI audits</li><li>AI previews</li></ul><a class="btn" href="#search">Start Trial</a></article>
+        <article class="price-card"><h3>Agency</h3><div class="price">£299 <small>/month</small></div><p>For high-volume agencies</p><ul><li>Everything in Pro</li><li>5 team members</li><li>5,000 results/search</li><li>API access</li></ul><a class="btn btn-outline" href="#search">Start Trial</a></article>
+      </div>
+    </section>
+  </main>
+
+  <footer>© 2026 FindBiz. Working product name — branding and domain availability to be checked before launch.</footer>
+  <script src="app.js"></script>
+</body>
+</html>
