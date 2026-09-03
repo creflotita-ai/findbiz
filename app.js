@@ -1,1 +1,119 @@
-const API_URL="https://findbiz-api.creflotita.workers.dev";const searchBtn=document.getElementById("searchBtn"),locationInput=document.getElementById("location"),industrySelect=document.getElementById("industry"),resultsEl=document.getElementById("results"),statusEl=document.getElementById("status");function showStatus(m){statusEl.textContent=m;statusEl.classList.remove("hidden")}function escapeHtml(v){return String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}function getAddress(p){const a=p.address||{};return[[a.house_number,a.road].filter(Boolean).join(" "),a.suburb,a.city,a.postcode].filter(Boolean).join(", ")}function scorePlace(p){if(!p.website)return{label:"High opportunity",score:85};if(!p.phone)return{label:"Potential opportunity",score:55};return{label:"Website listed",score:25}}function renderResults(data){resultsEl.innerHTML="";if(!data.results?.length){resultsEl.innerHTML='<div class="empty">No matching businesses were returned. Try another location or industry.</div>';return}data.results.forEach(p=>{const o=scorePlace(p),has=Boolean(p.website),card=document.createElement("article");card.className="result-card";const site=has?`<div class="website"><strong>Website listed:</strong> ${escapeHtml(p.website)}</div>`:'<div class="website no-site"><strong>No website listed in the returned data</strong></div>';let links="";if(has&&/^https?:\/\//i.test(p.website))links+=`<a href="${escapeHtml(p.website)}" target="_blank" rel="noopener">Open website</a>`;if(p.lat&&p.lon){const m=`https://www.openstreetmap.org/?mlat=${encodeURIComponent(p.lat)}&mlon=${encodeURIComponent(p.lon)}#map=18/${encodeURIComponent(p.lat)}/${encodeURIComponent(p.lon)}`;links+=`<a href="${m}" target="_blank" rel="noopener">View map</a>`}card.innerHTML=`<h2>${escapeHtml(p.name)}</h2><div class="address">${escapeHtml(getAddress(p)||p.display_name||"Address not available")}</div><div class="score">${escapeHtml(o.label)} • ${o.score}/100</div>${site}${p.phone?`<div class="website">Phone: ${escapeHtml(p.phone)}</div>`:""}<div class="actions">${links}</div>`;resultsEl.appendChild(card)})}async function searchBusinesses(){const location=locationInput.value.trim()||"London",industry=industrySelect.value;searchBtn.disabled=true;searchBtn.textContent="Searching...";resultsEl.innerHTML="";showStatus(`Searching ${location} for ${industry} businesses...`);try{const r=await fetch(`${API_URL}/search?${new URLSearchParams({industry,location})}`);if(!r.ok)throw new Error(`Search failed (${r.status})`);const d=await r.json();if(!d.ok)throw new Error(d.error||"Search failed");showStatus(`Found ${d.count} result${d.count===1?"":"s"} for ${industry} in ${location}.`);renderResults(d)}catch(e){console.error(e);showStatus("Sorry — the real business search could not be completed. Please try again.");resultsEl.innerHTML='<div class="empty">Search temporarily unavailable.</div>'}finally{searchBtn.disabled=false;searchBtn.textContent="Search businesses"}}searchBtn.addEventListener("click",searchBusinesses);locationInput.addEventListener("keydown",e=>{if(e.key==="Enter")searchBusinesses()});searchBusinesses();
+const API_BASE = "https://findbiz-api.creflotita.workers.dev";
+
+const $ = (id) => document.getElementById(id);
+const searchBtn = $("searchBtn");
+const locationInput = $("location");
+const industrySelect = $("industry");
+const results = $("results");
+const statusBox = $("status");
+const summary = $("resultSummary");
+const countBadge = $("countBadge");
+
+function esc(value) {
+  return String(value ?? "").replace(/[&<>"']/g, ch => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  }[ch]));
+}
+
+function websiteFrom(item) {
+  return item.website || item.url || item["contact:website"] || item["contact:website:url"] || "";
+}
+
+function addressFrom(item) {
+  if (item.display_name) return item.display_name;
+  const a = item.address || {};
+  return [a.house_number, a.road, a.suburb, a.city || a.town || a.village, a.postcode]
+    .filter(Boolean).join(", ");
+}
+
+function renderResults(data) {
+  const items = Array.isArray(data.results) ? data.results : [];
+  countBadge.hidden = false;
+  countBadge.textContent = `${items.length} found`;
+
+  if (!items.length) {
+    summary.textContent = "No matching records were returned.";
+    results.innerHTML = `<div class="empty"><strong>No businesses found</strong><span>Try another industry or a broader location.</span></div>`;
+    return;
+  }
+
+  summary.textContent = `Live OpenStreetMap records for ${data.location || locationInput.value}.`;
+  results.innerHTML = items.map((item, index) => {
+    const website = websiteFrom(item);
+    const address = addressFrom(item);
+    const websiteLabel = website ? "Website listed" : "No website listed";
+    const opportunity = website ? "" : `<span class="badge opportunity">Potential web lead</span>`;
+    const mapUrl = (item.lat && item.lon)
+      ? `https://www.openstreetmap.org/?mlat=${encodeURIComponent(item.lat)}&mlon=${encodeURIComponent(item.lon)}#map=18/${encodeURIComponent(item.lat)}/${encodeURIComponent(item.lon)}`
+      : "";
+
+    return `<article class="card">
+      <div class="card-main">
+        <div class="name">${esc(item.name || item.display_name || `Business ${index + 1}`)}</div>
+        <div class="address">${esc(address || "Address not listed")}</div>
+        <div class="badges">
+          <span class="badge">${esc(data.industry || industrySelect.value)}</span>
+          <span class="badge">${websiteLabel}</span>
+          ${opportunity}
+        </div>
+      </div>
+      <div class="card-actions">
+        ${mapUrl ? `<a href="${mapUrl}" target="_blank" rel="noopener">View map</a>` : ""}
+        ${website ? `<a href="${esc(website)}" target="_blank" rel="noopener">Website</a>` : ""}
+      </div>
+    </article>`;
+  }).join("");
+}
+
+async function searchBusinesses() {
+  const location = locationInput.value.trim();
+  const industry = industrySelect.value;
+
+  if (!location) {
+    statusBox.hidden = false;
+    statusBox.className = "status error";
+    statusBox.textContent = "Please enter a location.";
+    return;
+  }
+
+  searchBtn.disabled = true;
+  searchBtn.textContent = "Searching…";
+  statusBox.hidden = false;
+  statusBox.className = "status";
+  statusBox.textContent = "Searching live business records…";
+  results.innerHTML = `<div class="empty"><strong>Searching…</strong><span>FindBiz is contacting the search gateway.</span></div>`;
+  countBadge.hidden = true;
+
+  try {
+    const url = `${API_BASE}/search?industry=${encodeURIComponent(industry)}&location=${encodeURIComponent(location)}`;
+    const response = await fetch(url, { headers: { "Accept": "application/json" } });
+
+    if (!response.ok) {
+      throw new Error(`Search gateway returned ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    if (!data || data.ok !== true) {
+      throw new Error(data?.error || "The search gateway did not return a valid result.");
+    }
+
+    statusBox.hidden = true;
+    renderResults(data);
+  } catch (error) {
+    console.error(error);
+    statusBox.hidden = false;
+    statusBox.className = "status error";
+    statusBox.textContent = "We couldn't complete the live search. Please try again in a moment.";
+    results.innerHTML = `<div class="empty"><strong>Search unavailable</strong><span>Check the Cloudflare Worker and try again.</span></div>`;
+    summary.textContent = "The live search could not be completed.";
+  } finally {
+    searchBtn.disabled = false;
+    searchBtn.textContent = "Find businesses";
+  }
+}
+
+searchBtn.addEventListener("click", searchBusinesses);
+locationInput.addEventListener("keydown", e => {
+  if (e.key === "Enter") searchBusinesses();
+});

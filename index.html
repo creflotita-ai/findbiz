@@ -1,32 +1,73 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FindBiz — Real Business Search</title>
-<link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FindBiz — Find businesses that may need a website</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header class="topbar"><div class="brand">FindBiz</div><div class="tagline">Find local businesses & spot website opportunities</div></header>
+<header class="topbar">
+  <div class="brand">Find<span>Biz</span></div>
+  <div class="tagline">Find businesses that may need a website</div>
+</header>
+
 <main class="container">
-<section class="hero">
-<span class="badge">LIVE BUSINESS SEARCH</span>
-<h1>Find businesses in your area</h1>
-<p>Search real business listings and identify businesses that may need a website.</p>
-<div class="search-card">
-<div class="field"><label for="location">Location</label><input id="location" value="London" placeholder="e.g. London"></div>
-<div class="field"><label for="industry">Industry</label><select id="industry">
-<option value="plumber">Plumbers</option><option value="restaurant">Restaurants</option>
-<option value="electrician">Electricians</option><option value="dentist">Dentists</option>
-<option value="barber" selected>Barbers</option></select></div>
-<button id="searchBtn">Search businesses</button>
-</div>
-<p class="notice">Results come from OpenStreetMap. Coverage varies. “No website listed” means no website was listed in the returned data — it is not proof that the business has no website.</p>
-</section>
-<section id="status" class="status hidden"></section>
-<section id="results" class="results"></section>
+  <section class="hero">
+    <div class="eyebrow">REAL BUSINESS SEARCH · V6</div>
+    <h1>Find local businesses with a web opportunity.</h1>
+    <p class="intro">
+      Search real OpenStreetMap business records through the FindBiz search gateway.
+      A missing website listing is a <strong>lead to verify</strong> — it is not proof that a business has no website.
+    </p>
+
+    <div class="searchbox">
+      <label>
+        <span>Location</span>
+        <input id="location" value="London" placeholder="e.g. London">
+      </label>
+      <label>
+        <span>Industry</span>
+        <select id="industry">
+          <option value="plumber">Plumbers</option>
+          <option value="restaurant">Restaurants</option>
+          <option value="electrician">Electricians</option>
+          <option value="dentist">Dentists</option>
+          <option value="barber">Barbers</option>
+        </select>
+      </label>
+      <button id="searchBtn">Find businesses</button>
+    </div>
+
+    <div id="status" class="status" hidden></div>
+  </section>
+
+  <section class="results-section">
+    <div class="results-heading">
+      <div>
+        <h2>Results</h2>
+        <p id="resultSummary">Run a search to see live records.</p>
+      </div>
+      <div id="countBadge" class="count" hidden></div>
+    </div>
+    <div id="results" class="results">
+      <div class="empty">
+        <strong>Ready to search</strong>
+        <span>Choose an industry and click “Find businesses”.</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="notice">
+    <strong>Important:</strong> “No website listed” means no website was found in the OpenStreetMap record returned by the search.
+    It is <strong>not</strong> proof that the business has no website. Verify promising leads before contacting them.
+  </div>
 </main>
-<footer>FindBiz • Business data © OpenStreetMap contributors</footer>
+
+<footer>
+  Business data © OpenStreetMap contributors, ODbL.
+</footer>
+
 <script src="app.js"></script>
 </body>
 </html>

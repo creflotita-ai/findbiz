@@ -1,9 +1,14 @@
-# FindBiz V5 — Real Business Search
+# FindBiz V6 — Real Business Search
 
-This version connects the GitHub Pages site to the FindBiz Cloudflare Worker and searches OpenStreetMap.
+Static GitHub Pages frontend connected to the FindBiz Cloudflare Worker.
 
-Industries: Plumbers, Restaurants, Electricians, Dentists, Barbers.
+API endpoint:
+https://findbiz-api.creflotita.workers.dev/search
 
-Important: “No website listed” means the returned OpenStreetMap record has no website field. It does NOT prove the business has no website. OpenStreetMap coverage varies.
+The search uses OpenStreetMap records. A missing website field means only that no website was listed in the returned OpenStreetMap record; it is not proof that the business has no website.
 
-This is a low-volume proof of concept. The public Nominatim service should not be used for bulk/systematic scraping.
+Upload these four files to the root of the GitHub repository:
+- index.html
+- styles.css
+- app.js
+- README.md
