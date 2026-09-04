@@ -71,3 +71,19 @@ header{background:rgba(8,19,38,.96);backdrop-filter:blur(14px)}
 .modalbox input{margin:12px 0}
 .full{width:100%}
 @keyframes modalIn{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}
+
+/* V13 real account UI */
+.authbox{max-height:90vh;overflow:auto}
+.authform{display:grid;gap:13px;margin-top:18px}
+.authform label{font-size:12px;font-weight:800;color:#27324a}
+.authform input{margin-top:7px}
+.authswitch{text-align:center!important;font-size:12px!important;color:#6b768b!important}
+.textbutton{border:0;background:none;color:#5e4cff;font-weight:900;cursor:pointer;padding:0}
+.authnotice{margin-top:15px;padding:11px 13px;border-radius:10px;background:#fff4e5;color:#8a5600;font-size:12px;line-height:1.5}
+.authnotice.success{background:#eaf9ef;color:#13763d}
+.verify{text-align:center;padding:12px 0 4px}
+.verifyicon{width:52px;height:52px;display:grid;place-items:center;margin:10px auto;border-radius:50%;background:#eaf9ef;color:#159447;font-size:24px;font-weight:900}
+.verify h3{margin:8px 0}
+.verify p{font-size:13px;line-height:1.6;color:#68748a}
+.verify .textbutton{margin-top:14px}
+.authlegal{display:block;color:#8a93a5;margin-top:18px;line-height:1.5}

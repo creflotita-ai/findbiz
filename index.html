@@ -21,6 +21,32 @@
 <section id="features" class="section wrap"><div class="title"><div class="eyebrow">WHY FINDBIZ</div><h2>Spend less time hunting. More time closing.</h2><p>Turn a broad market into a focused list of prospects worth contacting.</p></div><div class="cards"><article><b>⌕</b><h3>Find real businesses</h3><p>Search by location and industry using live business records.</p></article><article><b>◎</b><h3>Spot opportunities</h3><p>Prioritize records where no website is listed and investigate further.</p></article><article><b>↗</b><h3>Grow your agency</h3><p>Build a repeatable prospecting workflow instead of random outreach.</p></article></div></section>
 <section id="how" class="dark section"><div class="wrap"><div class="title"><div class="eyebrow">HOW YOU MAKE MONEY</div><h2>Search → qualify → contact → close.</h2></div><div class="steps"><div><b>01</b><h3>Search</h3><p>Pick a market and industry.</p></div><div><b>02</b><h3>Qualify</h3><p>Review the strongest opportunities.</p></div><div><b>03</b><h3>Contact</h3><p>Start a relevant sales conversation.</p></div><div><b>04</b><h3>Close</h3><p>Pitch your website service.</p></div></div></div></section>
 <section id="pricing" class="section wrap"><div class="title"><div class="eyebrow">PRICING</div><h2>Start free. Upgrade when FindBiz pays for itself.</h2></div><div class="pricing"><article><h3>Free</h3><strong>$0 <small>/ month</small></strong><p>Explore FindBiz before paying.</p><ul><li>10 searches / month</li><li>Basic lead details</li><li>Opportunity signals</li></ul><button class="secondary full" data-modal="signup">Start free</button></article><article class="popular"><label>Most popular</label><h3>Pro</h3><strong>$19 <small>/ month</small></strong><p>For freelancers and growing web designers.</p><ul><li>More searches</li><li>Saved leads</li><li>Export tools</li><li>Priority features</li></ul><button class="primary full" data-modal="signup">Choose Pro</button></article><article><h3>Agency</h3><strong>$49 <small>/ month</small></strong><p>For teams building a repeatable sales pipeline.</p><ul><li>Higher limits</li><li>Team workflow</li><li>Lead exports</li><li>Agency features</li></ul><button class="secondary full" data-modal="signup">Choose Agency</button></article></div></section>
-<section id="faq" class="section wrap faq"><div class="title"><div class="eyebrow">FAQ</div><h2>Simple answers.</h2></div><details><summary>Does “no website” prove a business has no website?</summary><p>No. It means the returned business record did not list a website. Verify every prospect before contacting them.</p></details><details><summary>Can I search anywhere?</summary><p>FindBiz is designed for worldwide location searches, subject to business-data coverage.</p></details><details><summary>Are login and payments live yet?</summary><p>Not yet. The interface is ready for the next stage: real accounts, saved leads, usage limits and payments.</p></details></section></main>
+<section id="faq" class="section wrap faq"><div class="title"><div class="eyebrow">FAQ</div><h2>Simple answers.</h2></div><details><summary>Does “no website” prove a business has no website?</summary><p>No. It means the returned business record did not list a website. Verify every prospect before contacting them.</p></details><details><summary>Can I search anywhere?</summary><p>FindBiz is designed for worldwide location searches, subject to business-data coverage.</p></details><details><summary>Are accounts live yet?</summary><p>Yes. Email/password accounts and email verification are being connected now. Payments, saved leads and usage limits are separate product stages.</p></details></section></main>
 <footer><div class="wrap"><a class="logo">Find<span>Biz</span></a><p>Find businesses. Start conversations. Win clients.</p><small>© 2026 FindBiz. Business data may require independent verification.</small></div></footer>
-<div id="modal" class="modal"><div class="modalbox"><button id="close">×</button><div class="eyebrow">FINDBIZ</div><h2 id="modalTitle">Start free</h2><p id="modalText">Accounts and payments are the next product stage.</p><input placeholder="Your email address"><button class="primary full">Continue</button><small>No payment is taken in this preview.</small></div></div><script src="app.js"></script></body></html>
+<div id="modal" class="modal"><div class="modalbox authbox">
+<button id="close" aria-label="Close">×</button>
+<div class="eyebrow">FINDBIZ ACCOUNT</div>
+<h2 id="modalTitle">Create your free account</h2>
+<p id="modalText">Use your email address and create a password. We’ll send a verification email before you can log in.</p>
+<div id="authNotice" class="authnotice" hidden></div>
+<form id="signupForm" class="authform">
+<label>Email address<input id="signupEmail" type="email" autocomplete="email" placeholder="you@example.com" required></label>
+<label>Password<input id="signupPassword" type="password" autocomplete="new-password" placeholder="At least 8 characters" minlength="8" required></label>
+<label>Confirm password<input id="signupConfirm" type="password" autocomplete="new-password" placeholder="Re-enter your password" minlength="8" required></label>
+<button id="signupSubmit" class="primary full" type="submit">Create account</button>
+<p class="authswitch">Already have an account? <button type="button" class="textbutton" id="showLogin">Log in</button></p>
+</form>
+<form id="loginForm" class="authform" hidden>
+<label>Email address<input id="loginEmail" type="email" autocomplete="email" placeholder="you@example.com" required></label>
+<label>Password<input id="loginPassword" type="password" autocomplete="current-password" placeholder="Your password" required></label>
+<button id="loginSubmit" class="primary full" type="submit">Log in</button>
+<p class="authswitch">Need an account? <button type="button" class="textbutton" id="showSignup">Create one</button></p>
+</form>
+<div id="verifyPanel" class="verify" hidden>
+<div class="verifyicon">✓</div><h3>Check your email</h3>
+<p>We sent a verification link to <strong id="verifyEmail"></strong>. Click it to verify your account, then come back here and log in.</p>
+<button id="resendBtn" class="secondary full" type="button">Resend verification email</button>
+<button id="backToLogin" class="textbutton" type="button">Back to log in</button>
+</div>
+<small class="authlegal">Your password is handled by the authentication service and is never stored in this website’s code.</small>
+</div></div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script><script src="app.js"></script></body></html>
